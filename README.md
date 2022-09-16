@@ -18,7 +18,7 @@ To open the workspace, simply click on the *Open in Gitpod* button, or use [this
 
 ### Init the project
 
-  - create the project using the operator-sdk CLI: `operator-sdk init --plugins quarkus --domain operator.workshop.com --project-name workshop-operator-hello-world`
+  - create the project using the operator-sdk CLI: `operator-sdk init --plugins quarkus --domain <username>.operator.workshop.com --project-name workshop-operator-hello-world`, for example `operator-sdk init --plugins quarkus --domain wilda.operator.workshop.com --project-name workshop-operator-hello-world`
   - the following tree structure must be created:
 ```bash
 .
@@ -73,13 +73,13 @@ src
 │       │               ├── HelloWorldSpec.java
 │       │               └── HelloWorldStatus.java
 ```
-  - check the generated CRD in `./target/kubernetes/helloworlds.operator.workshop.com-v1.yml`
-  - check that the CRD is generated in the Kubernetes' cluster: `kubectl get crds helloworlds.operator.workshop.com`
+  - check the generated CRD in `./target/kubernetes/helloworlds.<username>.operator.workshop.com-v1.yml`, for example `./target/kubernetes/helloworlds.wilda.operator.workshop.com-v1.yml`
+  - check that the CRD is generated in the Kubernetes' cluster: `kubectl get crds helloworlds.<username>.operator.workshop.com`, for example `kubectl get crds helloworlds.wilda.operator.workshop.com`
 ```bash
-$ kubectl get crds helloworlds.operator.workshop.com
+$ kubectl get crds helloworlds.wilda.operator.workshop.com
+NAME                                      CREATED AT
 
-NAME                                CREATED AT
-helloworlds.operator.workshop.com   2022-09-16T07:16:34Z
+helloworlds.wilda.operator.workshop.com   2022-09-16T12:15:17Z
 ```
   - modify the `HelloWorldSpec.java` class:
 ```java
@@ -95,22 +95,22 @@ public class HelloWorldSpec {
     }
 }
 ```
-  - check that the CRD is updated in `./target/kubernetes/helloworlds.operator.workshop.com-v1.yml` file and in the Kubernetes' cluster:
+  - check that the CRD is updated in `./target/kubernetes/helloworlds.<username>.operator.workshop.com-v1.yml` file and in the Kubernetes' cluster, for example for `/target/kubernetes/helloworlds.wilda.operator.workshop.com-v1.yml`:
 ```bash
-$ kubectl get crds helloworlds.operator.workshop.com -o yaml
+$ kubectl get crds helloworlds.wilda.operator.workshop.com -o yaml
 
 apiVersion: apiextensions.k8s.io/v1
 kind: CustomResourceDefinition
 metadata:
-  creationTimestamp: "2022-09-16T07:16:34Z"
+  creationTimestamp: "2022-09-16T12:15:17Z"
   generation: 2
-  name: helloworlds.operator.workshop.com
-  resourceVersion: "35428210718"
-  uid: 3dbbd774-cd57-4479-9c6b-5490a2d5362b
+  name: helloworlds.wilda.operator.workshop.com
+  resourceVersion: "35431452502"
+  uid: e5eeb238-4e6b-4a82-aa2a-1cac1a9797ac
 spec:
   conversion:
     strategy: None
-  group: operator.workshop.com
+  group: wilda.operator.workshop.com
   names:
     kind: HelloWorld
     listKind: HelloWorldList
@@ -141,12 +141,12 @@ status:
     plural: helloworlds
     singular: helloworld
   conditions:
-  - lastTransitionTime: "2022-09-16T07:16:34Z"
+  - lastTransitionTime: "2022-09-16T12:15:17Z"
     message: no conflicts found
     reason: NoConflicts
     status: "True"
     type: NamesAccepted
-  - lastTransitionTime: "2022-09-16T07:16:34Z"
+  - lastTransitionTime: "2022-09-16T12:15:18Z"
     message: the initial names have been accepted
     reason: InitialNamesAccepted
     status: "True"
@@ -179,10 +179,18 @@ public class HelloWorldReconciler implements Reconciler<HelloWorld>, Cleaner<Hel
   }
 }
 ```
-  <!--- create the namespace `<username>-hello-world`: `kubectl create ns <username>-hello-world`, for example `kubectl create ns wilda-hello-world`-->
   - create CR `./src/test/resources/cr-test-hello-world.yaml`:
 ```yaml
-apiVersion: "operator.workshop.com/v1"
+apiVersion: "<username>.operator.workshop.com/v1"
+kind: HelloWorld
+metadata:
+  name: hello-world
+spec:
+  name: Moon
+```
+for example:
+```yaml
+apiVersion: "wilda.operator.workshop.com/v1"
 kind: HelloWorld
 metadata:
   name: hello-world
@@ -194,7 +202,7 @@ spec:
 ```bash
 INFO  [com.wor.ope.HelloWorldReconciler] (EventHandler-helloworldreconciler) 👋 Hello, World ! From Moon 🌏
 ```
-  - delete the CR: `kubectl delete helloworlds.operator.workshop.com hello-world -n <your namespace>`, for example `kubectl delete helloworlds.operator.workshop.com hello-world -n wilda-workshop`
+  - delete the CR: `kubectl delete helloworlds.<username>.operator.workshop.com hello-world -n <your namespace>`, for example `kubectl delete helloworlds.wilda.operator.workshop.com hello-world -n wilda-workshop`
   - the logs in the console must display:
 ```bash
 INFO  [com.wor.ope.HelloWorldReconciler] (EventHandler-helloworldreconciler) 🥲 Goodbye, World ! From Moon
