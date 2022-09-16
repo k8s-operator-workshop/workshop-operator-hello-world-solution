@@ -207,3 +207,4 @@ INFO  [com.wor.ope.HelloWorldReconciler] (EventHandler-helloworldreconciler) ðŸ‘
 ```bash
 INFO  [com.wor.ope.HelloWorldReconciler] (EventHandler-helloworldreconciler) ðŸ¥² Goodbye, World ! From Moon
 ```
+  - delete the crd : `kubectl delete crds/helloworlds.<username>.operator.workshop.com`, for example `kubectl delete crds/helloworlds.wilda.operator.workshop.com`
