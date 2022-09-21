@@ -1,0 +1,6 @@
+apiVersion: "operator.workshop.com/v1"
+kind: HelloWorld
+metadata:
+  name: hello-world
+spec:
+  name: Moon
