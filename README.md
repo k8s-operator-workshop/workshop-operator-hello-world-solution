@@ -3,7 +3,7 @@ Empty repository to start the workshop
 
 ## GitPod integration
 
-Before open the project in Gitpod make sure to have set your `K8S_CTK` variable with the base 64 encoded version of your `k3s.yaml` file: `cat k3s.yaml | base64`.
+Before open the project in Gitpod make sure to have set your `K8S_CTK` variable with the base 64 encoded version of your Kubernetes config file (`config-k3s00X`) file: `cat config-k3s00X | base64`.
 
 To open the workspace, simply click on the *Open in Gitpod* button, or use [this link](https://gitpod.io/#https://github.com/k8s-operator-workshop/workshop-operator-hello-world).
 
