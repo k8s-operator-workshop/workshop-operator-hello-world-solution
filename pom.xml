@@ -9,14 +9,14 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
   <properties>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
+    <compiler-plugin.version>3.10.1</compiler-plugin.version>
     <maven.compiler.parameters>true</maven.compiler.parameters>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <quarkus-sdk.version>4.0.0</quarkus-sdk.version>
-    <quarkus.version>2.12.2.Final</quarkus.version>
+    <quarkus-sdk.version>4.0.3</quarkus-sdk.version>
+    <quarkus.version>2.13.1.Final</quarkus.version>
   </properties>
 
   <dependencyManagement>
@@ -35,12 +35,16 @@
       <groupId>io.quarkiverse.operatorsdk</groupId>
       <artifactId>quarkus-operator-sdk</artifactId>
     </dependency>
+    <!-- Needed to generate OLM bundle. If you're not interested in this, you can remove this dependency -->
+    <dependency>
+      <groupId>io.quarkiverse.operatorsdk</groupId>
+      <artifactId>quarkus-operator-sdk-bundle-generator</artifactId>
+    </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-micrometer-registry-prometheus</artifactId>
       <version>${quarkus.version}</version>
     </dependency>
-    
     <!-- Mandatory for k3s : see https://github.com/fabric8io/kubernetes-client/issues/1796 -->
     <dependency>
       <groupId>org.bouncycastle</groupId>
